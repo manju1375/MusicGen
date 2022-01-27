@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MusicWiki</string>
+    <string name="api_key" translatable="false">0f408f6404a94723710b4e444a0382b4</string>
+</resources>
