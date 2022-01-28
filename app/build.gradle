@@ -31,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -48,6 +51,8 @@ dependencies {
     api "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
