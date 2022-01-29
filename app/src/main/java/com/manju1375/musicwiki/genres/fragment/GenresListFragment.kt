@@ -34,8 +34,21 @@ class GenresListFragment : Fragment() {
         binding.viewmodel = genresViewModel
         context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.bagItemsList.addItemDecoration(it) }
         binding.bagItemsList.adapter = GenresAdapter()
+        (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(false)
         genresViewModel.setLoaderVisibility(View.VISIBLE)
         genresViewModel.fetchGenres()
+        binding.buttonExpand.setOnClickListener {
+            ( binding.bagItemsList.adapter as GenresAdapter).isExpandable?.let { isExpandable ->
+                if(!isExpandable){
+                    (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(true)
+                    binding.buttonExpand.text = "Collapse"
+                }
+                else{
+                    (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(false)
+                    binding.buttonExpand.text = "Expand"
+                }
+            }
+        }
         return binding.root
     }
 

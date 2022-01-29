@@ -13,13 +13,16 @@ import com.manju1375.musicwiki.R
 class GenresAdapter: RecyclerView.Adapter<GenresAdapter.ViewHolder>(), BindableAdapter<Tag> {
     private var genres: List<Tag> = listOf()
     private var recyclerView: RecyclerView? = null
+    var isExpandable:Boolean? = false
+    private final val EXPAND_COLLAPSE_INDEX = 10
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var genreName: TextView? = null
         init {
                 genreName =  itemView.findViewById(R.id.genretv)
             }
-        fun bind(name: String?) {
+        fun bind(name: String?,isVisible: Int) {
             genreName?.text = name
+            itemView.visibility = isVisible
         }
     }
 
@@ -30,7 +33,13 @@ class GenresAdapter: RecyclerView.Adapter<GenresAdapter.ViewHolder>(), BindableA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       holder.bind(genres[position].name)
+       var visiblity = View.VISIBLE
+       isExpandable?.let {
+           if(!it){
+               visiblity = if(position<EXPAND_COLLAPSE_INDEX) View.VISIBLE else View.GONE
+           }
+       }
+       holder.bind(genres[position].name,visiblity)
     }
 
     override fun getItemCount(): Int {
@@ -51,5 +60,11 @@ class GenresAdapter: RecyclerView.Adapter<GenresAdapter.ViewHolder>(), BindableA
         super.onDetachedFromRecyclerView(recyclerView)
         this.recyclerView = null
     }
+
+    fun expandRecyclerView(isExpandable: Boolean){
+       this.isExpandable = isExpandable
+        notifyDataSetChanged()
+    }
+
 
 }

@@ -15,28 +15,27 @@
         android:layout_height="match_parent"
         tools:context=".FirstFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintStart_toStartOf="parent"
+        <Button
+            android:id="@+id/button_expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click here to expand"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/dp_10"/>
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bag_items_list"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
             app:data="@{viewmodel.genresViewState.tagListItems}"
-            app:spanCount="3"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
-
-        <!--<Button
-            android:id="@+id/button_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Load More"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bag_items_list" />-->
+            app:layout_constraintTop_toBottomOf="@+id/button_expand"
+            app:spanCount="3" />
 
         <ProgressBar
             android:layout_width="30dp"
