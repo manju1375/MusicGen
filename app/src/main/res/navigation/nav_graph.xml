@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.manju1375.musicwiki.ui.activity.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:name="com.manju1375.musicwiki.genres.fragment.GenresListFragment"
+        android:label="GenresList"
+        tools:layout="@layout/fragment_genres_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.manju1375.musicwiki.ui.activity.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:name="com.manju1375.musicwiki.genres.fragment.GenreDetailsFragment"
+        android:label="GenresDetails"
+        tools:layout="@layout/fragment_genres_details">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"

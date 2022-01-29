@@ -1,12 +1,9 @@
-package com.manju1375.musicwiki.ui.activity
+package com.manju1375.musicwiki.common.ui.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.albums.AlbumsViewModel
 import com.manju1375.musicwiki.albums.AlbumsViewModelFactory
 import com.manju1375.musicwiki.artists.ArtistsViewModel
@@ -18,7 +15,7 @@ import com.manju1375.musicwiki.tracks.TracksViewModel
 import com.manju1375.musicwiki.tracks.TracksViewModelFactory
 
 
-class MainActivity : AppCompatActivity() {
+class TestServicesActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMain2Binding
