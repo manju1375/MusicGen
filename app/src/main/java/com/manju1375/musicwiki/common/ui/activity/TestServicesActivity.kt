@@ -4,15 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
-import com.manju1375.musicwiki.albums.AlbumsViewModel
-import com.manju1375.musicwiki.albums.AlbumsViewModelFactory
-import com.manju1375.musicwiki.artists.ArtistsViewModel
-import com.manju1375.musicwiki.artists.ArtistsViewModelFactory
+import com.manju1375.musicwiki.albums.viewmodel.AlbumsViewModel
+import com.manju1375.musicwiki.albums.viewmodel.AlbumsViewModelFactory
+import com.manju1375.musicwiki.artists.viewmodel.ArtistsViewModel
 import com.manju1375.musicwiki.databinding.ActivityMain2Binding
+import com.manju1375.musicwiki.genres.viewmodel.ArtistsViewModelFactory
 import com.manju1375.musicwiki.genres.viewmodel.GenresViewModel
-import com.manju1375.musicwiki.genres.viewmodel.GenresViewModelFactory
-import com.manju1375.musicwiki.tracks.TracksViewModel
-import com.manju1375.musicwiki.tracks.TracksViewModelFactory
+import com.manju1375.musicwiki.tracks.viewmodel.TracksViewModel
+import com.manju1375.musicwiki.tracks.viewmodel.TracksViewModelFactory
 
 
 class TestServicesActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class TestServicesActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMain2Binding
     private val genresViewModel: GenresViewModel by viewModels(
-        factoryProducer = { GenresViewModelFactory() }
+        factoryProducer = { com.manju1375.musicwiki.genres.viewmodel.ArtistsViewModelFactory() }
     )
     private val albumsViewModel: AlbumsViewModel by viewModels(
         factoryProducer = { AlbumsViewModelFactory() }
@@ -45,13 +44,13 @@ class TestServicesActivity : AppCompatActivity() {
             genresViewModel.fetchGenresInfo()
         }
         binding.albums.setOnClickListener { view ->
-            albumsViewModel.fetchAlbumsForTag()
+            albumsViewModel.fetchAlbumsForTag("disco")
         }
         binding.artists.setOnClickListener { view ->
-            artistsViewModel.fetchArtistsForTag()
+            artistsViewModel.fetchArtists("disco")
         }
         binding.tracks.setOnClickListener { view ->
-            tracksViewModel.fetchTracksForTag()
+            tracksViewModel.fetchTracksForTag("disco")
         }
     }
 }

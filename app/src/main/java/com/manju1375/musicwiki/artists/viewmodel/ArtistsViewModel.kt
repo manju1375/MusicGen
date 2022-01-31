@@ -1,6 +1,7 @@
-package com.manju1375.musicwiki.artists
+package com.manju1375.musicwiki.artists.viewmodel
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.manju1375.musicwiki.api.artists.model.ArtistsDetails
 import com.manju1375.musicwiki.api.artists.service.ArtistService
@@ -10,26 +11,33 @@ import com.manju1375.musicwiki.config.Constants
 
 class ArtistsViewModel(private val artistsService: ArtistService) : BaseViewModel() {
 
-    private val artistsDetailsLiveData: MutableLiveData<ArtistsDetails> = MutableLiveData()
+    val artistsViewState: MutableLiveData<ArtistsViewState> = MutableLiveData()
     private var fetchArtists: Boolean = false
     private val TAG = ArtistsViewModel::class.java.simpleName
 
+    fun setLoaderVisibility(visible: Int) {
+        loaderVisibility.postValue(visible)
+    }
 
-    fun fetchArtistsForTag() {
+    fun fetchArtists(selectedGenre: String?) {
+        selectedGenre?:return
         if (fetchArtists) {
             return
         }
-        Log.d(TAG,"fetching Artists...")
+        Log.d(TAG,"fetching Genres...")
         fetchArtists = true
-        val hashMap =hashMapOf("method" to "tag.gettopartists", "tag" to "disco", "api_key" to "0f408f6404a94723710b4e444a0382b4","format" to "json")
+        loaderVisibility.postValue(View.VISIBLE)
+        val hashMap =hashMapOf("method" to "tag.gettopartists", "api_key" to "0f408f6404a94723710b4e444a0382b4","tag" to selectedGenre, "format" to "json")
         addDisposable(artistsService.getArtists(Constants.ENDPOINT_BASE_URL,hashMap)
             .compose(RxUtils.applySingleSchedulers())
             .subscribe({ artistsDetails ->
                 Log.d(TAG,"fetchArtists:"+artistsDetails)
-                artistsDetailsLiveData.postValue(artistsDetails)
+                loaderVisibility.postValue(View.GONE)
+                setUpView(artistsDetails)
                 fetchArtists = false
             }, { e ->
                 Log.d(TAG,"fetchArtists:"+e.message)
+                loaderVisibility.postValue(View.GONE)
                 when (artistsService.getErrorCode(e)) {
                     Constants.HttpError.BAD_REQUEST_ERROR -> {
                     }
@@ -44,4 +52,12 @@ class ArtistsViewModel(private val artistsService: ArtistService) : BaseViewMode
         )
     }
 
+
+    private fun setUpView(artistsDetails: ArtistsDetails){
+        val newViewState = ArtistsViewState()
+        artistsDetails.topartists?.artist?.let { artistsList ->
+            newViewState.artistListItems = artistsList
+        }
+        artistsViewState.postValue(newViewState)
+    }
 }

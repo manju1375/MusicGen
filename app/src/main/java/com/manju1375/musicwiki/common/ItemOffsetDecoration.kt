@@ -1,4 +1,4 @@
-package com.manju1375.musicwiki.genres
+package com.manju1375.musicwiki.common
 
 import android.content.Context
 import android.graphics.Rect

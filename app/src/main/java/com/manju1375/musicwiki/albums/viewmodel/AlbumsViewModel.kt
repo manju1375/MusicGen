@@ -1,6 +1,7 @@
-package com.manju1375.musicwiki.albums
+package com.manju1375.musicwiki.albums.viewmodel
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.manju1375.musicwiki.api.albums.model.AlbumDetails
 import com.manju1375.musicwiki.api.albums.service.AlbumService
@@ -10,26 +11,32 @@ import com.manju1375.musicwiki.config.Constants
 
 class AlbumsViewModel(private val albumService: AlbumService) : BaseViewModel() {
 
-    private val albumDetailsLiveData: MutableLiveData<AlbumDetails> = MutableLiveData()
+    val albumsViewState: MutableLiveData<AlbumsViewState> = MutableLiveData()
     private var fetchAlbums: Boolean = false
     private val TAG = AlbumsViewModel::class.java.simpleName
 
+    fun setLoaderVisibility(visible: Int) {
+        loaderVisibility.postValue(visible)
+    }
 
-    fun fetchAlbumsForTag() {
+    fun fetchAlbumsForTag(selectedGenre: String?) {
+        selectedGenre?:return
         if (fetchAlbums) {
             return
         }
         Log.d(TAG,"fetching Albums...")
         fetchAlbums = true
-        val hashMap =hashMapOf("method" to "tag.gettopalbums", "api_key" to "0f408f6404a94723710b4e444a0382b4","format" to "json")
+        val hashMap =hashMapOf("method" to "tag.gettopalbums", "api_key" to "0f408f6404a94723710b4e444a0382b4","tag" to selectedGenre, "format" to "json")
         addDisposable(albumService.getAlbums(Constants.ENDPOINT_BASE_URL,hashMap)
             .compose(RxUtils.applySingleSchedulers())
             .subscribe({ albumDetails ->
                 Log.d(TAG,"fetchAlbums:"+albumDetails)
-                albumDetailsLiveData.postValue(albumDetails)
+                loaderVisibility.postValue(View.GONE)
+                setUpView(albumDetails)
                 fetchAlbums = false
             }, { e ->
-                Log.d(TAG,"fetchGenres:"+e.message)
+                Log.d(TAG,"fetchAlbums:"+e.message)
+                loaderVisibility.postValue(View.GONE)
                 when (albumService.getErrorCode(e)) {
                     Constants.HttpError.BAD_REQUEST_ERROR -> {
                     }
@@ -42,6 +49,14 @@ class AlbumsViewModel(private val albumService: AlbumService) : BaseViewModel() 
                 fetchAlbums = false
             })
         )
+    }
+
+    private fun setUpView(albumDetails: AlbumDetails){
+        val newViewState = AlbumsViewState()
+        albumDetails.albums?.album?.let { albumItems ->
+            newViewState.albumListItems = albumItems
+        }
+        albumsViewState.postValue(newViewState)
     }
 
 }

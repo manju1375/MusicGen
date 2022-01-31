@@ -1,5 +1,6 @@
 package com.manju1375.musicwiki.genres.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.databinding.FragmentGenresListBinding
-import com.manju1375.musicwiki.genres.GenresAdapter
-import com.manju1375.musicwiki.genres.ItemOffsetDecoration
+import com.manju1375.musicwiki.genres.adapter.GenresAdapter
+import com.manju1375.musicwiki.common.ItemOffsetDecoration
+import com.manju1375.musicwiki.genres.activity.GenreDetailsActivity
 import com.manju1375.musicwiki.genres.viewmodel.GenresViewModel
+import com.manju1375.musicwiki.genres.viewmodel.ArtistsViewModelFactory
 import com.manju1375.musicwiki.genres.viewmodel.GenresViewModelFactory
+import com.manju1375.musicwiki.genres.viewmodel.GenresViewState
 
 class GenresListFragment : Fragment() {
 
@@ -28,23 +32,30 @@ class GenresListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGenresListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = genresViewModel
-        context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.bagItemsList.addItemDecoration(it) }
-        binding.bagItemsList.adapter = GenresAdapter()
-        (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(false)
+        context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.genresList.addItemDecoration(it) }
+        binding.genresList.adapter = GenresAdapter(object :GenresAdapter.OnGenreItemClickListener{
+            override fun onItemClick(genreItem: String) {
+                startActivity(Intent(activity,GenreDetailsActivity::class.java).apply{
+                    putExtras(Bundle().apply {  putString("selectedGenre",genreItem)})
+                })
+                }
+            })
+
+        (binding.genresList.adapter as GenresAdapter).expandRecyclerView(false)
         genresViewModel.setLoaderVisibility(View.VISIBLE)
         genresViewModel.fetchGenres()
         binding.buttonExpand.setOnClickListener {
-            ( binding.bagItemsList.adapter as GenresAdapter).isExpandable?.let { isExpandable ->
+            ( binding.genresList.adapter as GenresAdapter).isExpandable?.let { isExpandable ->
                 if(!isExpandable){
-                    (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(true)
+                    (binding.genresList.adapter as GenresAdapter).expandRecyclerView(true)
                     binding.buttonExpand.text = "Collapse"
                 }
                 else{
-                    (binding.bagItemsList.adapter as GenresAdapter).expandRecyclerView(false)
+                    (binding.genresList.adapter as GenresAdapter).expandRecyclerView(false)
                     binding.buttonExpand.text = "Expand"
                 }
             }

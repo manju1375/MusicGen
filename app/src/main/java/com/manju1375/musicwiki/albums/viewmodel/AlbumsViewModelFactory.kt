@@ -1,4 +1,4 @@
-package com.manju1375.musicwiki.albums
+package com.manju1375.musicwiki.albums.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

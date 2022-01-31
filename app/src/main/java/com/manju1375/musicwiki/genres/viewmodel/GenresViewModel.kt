@@ -13,7 +13,6 @@ import com.manju1375.musicwiki.config.Constants
 
 class GenresViewModel(private val genreService: GenreService) : BaseViewModel() {
 
-    val genresDetailsLiveData: MutableLiveData<GenresTagDetails> = MutableLiveData()
     val genresTagInfoLiveData: MutableLiveData<GenresTagInfo> = MutableLiveData()
     val genresViewState: MutableLiveData<GenresViewState> = MutableLiveData()
     private var fetchGenres: Boolean = false
