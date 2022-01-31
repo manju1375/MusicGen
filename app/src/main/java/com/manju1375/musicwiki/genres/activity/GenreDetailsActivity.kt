@@ -1,30 +1,17 @@
-/*
- * Copyright (C) 2017
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.manju1375.musicwiki.genres.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -33,25 +20,48 @@ import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.albums.fragment.AlbumsListFragment
 import com.manju1375.musicwiki.albums.fragment.ArtistsListFragment
 import com.manju1375.musicwiki.albums.fragment.TracksListFragment
+import com.manju1375.musicwiki.databinding.ActivityGenreDetailsLayoutBinding
+import com.manju1375.musicwiki.databinding.ActivityMain2Binding
+import com.manju1375.musicwiki.databinding.FragmentGenresListBinding
 import com.manju1375.musicwiki.genres.activity.GenreDetailsActivity
+import com.manju1375.musicwiki.genres.viewmodel.GenresDetailsViewModel
+import com.manju1375.musicwiki.genres.viewmodel.GenresDetailsViewModelFactory
+import com.manju1375.musicwiki.genres.viewmodel.GenresViewModel
+import com.manju1375.musicwiki.genres.viewmodel.GenresViewModelFactory
 
 class GenreDetailsActivity : AppCompatActivity(), OnOffsetChangedListener {
+
+    private var _binding: ActivityGenreDetailsLayoutBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+
     private var mIsAvatarShown = true
     private var detailsLayout: LinearLayoutCompat? = null
     private var mMaxScrollSize = 0
     var selectedGenre: String? = null
+    private val genresDetailsViewModel: GenresDetailsViewModel by viewModels(
+        factoryProducer = { GenresDetailsViewModelFactory() }
+    )
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.genre_details_layout)
+        _binding = ActivityGenreDetailsLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         selectedGenre = intent.getStringExtra("selectedGenre")
-        val tabLayout = findViewById<View>(R.id.materialup_tabs) as TabLayout
-        val viewPager = findViewById<View>(R.id.materialup_viewpager) as ViewPager
-        val appbarLayout = findViewById<View>(R.id.materialup_appbar) as AppBarLayout
-        detailsLayout = findViewById<LinearLayoutCompat>(R.id.detailslayout) as LinearLayoutCompat
-        val toolbar = findViewById<View>(R.id.materialup_toolbar) as Toolbar
+        binding.lifecycleOwner = this
+        binding.viewmodel = genresDetailsViewModel
+        val tabLayout = binding.materialupTabs
+        val viewPager = binding.materialupViewpager
+        val appbarLayout = binding.materialupAppbar
+        detailsLayout = binding.detailslayout
+        val toolbar = binding.materialupToolbar
         toolbar.setNavigationOnClickListener { onBackPressed() }
         appbarLayout.addOnOffsetChangedListener(this)
         mMaxScrollSize = appbarLayout.totalScrollRange
+        genresDetailsViewModel.fetchGenresInfo(selectedGenre)
         viewPager.adapter = selectedGenre?.let { TabsAdapter(supportFragmentManager, it) }
         tabLayout.setupWithViewPager(viewPager)
     }
