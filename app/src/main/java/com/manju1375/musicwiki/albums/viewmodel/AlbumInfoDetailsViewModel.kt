@@ -4,9 +4,9 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.manju1375.musicwiki.api.albums.model.AlbumInfo
-import com.manju1375.musicwiki.api.albums.model.AlbumInfoDetails
 import com.manju1375.musicwiki.api.albums.service.AlbumService
 import com.manju1375.musicwiki.common.utils.RxUtils
+import com.manju1375.musicwiki.common.utils.getHtmlText
 import com.manju1375.musicwiki.common.viewmodel.BaseViewModel
 import com.manju1375.musicwiki.config.Constants
 
@@ -59,7 +59,13 @@ class AlbumInfoDetailsViewModel(private val albumService: AlbumService) : BaseVi
                 newViewState.tagListItems = it
             }
             album.album?.wiki?.summary?.let {
-                newViewState.summary = it
+                newViewState.summary = getHtmlText(it)
+            }
+            album.album?.image?.let {
+                newViewState.image = it
+            }
+            album.album?.name?.let {
+                newViewState.name = it
             }
         }
         infoViewState.postValue(newViewState)

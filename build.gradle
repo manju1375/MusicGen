@@ -4,6 +4,7 @@ buildscript {
     ext.rxjava_version = "2.2.21"
     ext.rxandroid_version = "2.1.1"
     ext.rxkotlin_version = "2.4.0"
+    ext.coilVersion = "0.11.0"
     repositories {
         google()
         mavenCentral()

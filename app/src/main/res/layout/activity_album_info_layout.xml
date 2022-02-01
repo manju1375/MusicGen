@@ -11,51 +11,63 @@
             type="com.manju1375.musicwiki.albums.viewmodel.AlbumInfoDetailsViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/materialup.appbar"
-            android:layout_width="match_parent"
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/album_iv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/dp_40"/>
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/main.collapsing"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:expandedTitleMarginEnd="64dp"
-                app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|snap">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/album_iv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></androidx.appcompat.widget.AppCompatImageView>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/details_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:id="@+id/details_layout">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/album_genres_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
-            app:data="@{viewmodel.infoViewState.tagListItems}" />
+            app:layout_constraintTop_toBottomOf="@+id/album_iv">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/summary_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewmodel.infoViewState.summary}" />
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/default_text_body_lg_strong"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="10dp"
+                android:text="@{viewmodel.infoViewState.name}"
+                app:layout_constraintTop_toBottomOf="@+id/album_iv"
+                android:textColor="@android:color/black"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/album_genres_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="220dp"
+                app:data="@{viewmodel.infoViewState.tagListItems}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/summary_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:text="@{viewmodel.infoViewState.summary}"
+                android:textAlignment="gravity"
+                />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

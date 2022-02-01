@@ -25,6 +25,7 @@ data class AlbumInfoDetails (
     var playcount: String? = null,
 
     @SerializedName("image")
+    @Expose
     var image: List<Image>? = null,
 
     @SerializedName("tracks")
