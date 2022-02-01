@@ -18,6 +18,8 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:maxLines="1"
+        android:maxLength="10"
         style="@style/default_text_body_sm_strong"
         android:text="Sample text test"
         android:gravity="center_horizontal"

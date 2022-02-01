@@ -18,6 +18,8 @@
         app:layout_constraintTop_toTopOf="parent"/>
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/default_text_body_sm_strong"
+        android:maxLength="10"
+        android:maxLines="1"
         android:text="Sample text test"
         android:gravity="center_horizontal"
         android:id="@+id/album_tv"

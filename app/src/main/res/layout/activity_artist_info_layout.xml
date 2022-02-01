@@ -43,6 +43,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                     <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/default_text_body_lg_strong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/name_tv"
@@ -51,9 +52,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="@dimen/dp_70"
-                        android:layout_marginStart="@dimen/dp_40"
                         android:layout_marginBottom="@dimen/dp_10" />
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/playcount_tv"
@@ -64,6 +65,7 @@
                         android:layout_marginStart="@dimen/dp_40"
                         android:layout_marginBottom="@dimen/dp_10" />
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/followers_tv"
@@ -95,23 +97,36 @@
                 android:id="@+id/summary_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.infoViewState.summary}" />
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:text="@{viewmodel.infoViewState.summary}"
+                android:textAlignment="gravity"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                style="@style/default_text_body_lg_strong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top Tracks" />
+                android:text="Top Tracks"
+                isVisible="@{viewmodel.tracksViewState.tagListItems.size()>0}"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_tracks_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:data="@{viewmodel.tracksViewState.tagListItems}" />
+                app:data="@{viewmodel.tracksViewState.tagListItems}"
+                isVisible="@{viewmodel.tracksViewState.tagListItems.size()>0}"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                style="@style/default_text_body_lg_strong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top Albums" />
+                android:text="Top Albums"
+                isVisible="@{viewmodel.albumsViewState.tagListItems.size()>0}"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_albums_list"

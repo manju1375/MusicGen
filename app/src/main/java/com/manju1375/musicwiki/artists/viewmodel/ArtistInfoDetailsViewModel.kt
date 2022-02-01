@@ -8,6 +8,7 @@ import com.manju1375.musicwiki.api.artists.model.ArtistInfo
 import com.manju1375.musicwiki.api.artists.service.ArtistService
 import com.manju1375.musicwiki.api.tracks.model.Tracks
 import com.manju1375.musicwiki.common.utils.RxUtils
+import com.manju1375.musicwiki.common.utils.getHtmlText
 import com.manju1375.musicwiki.common.viewmodel.BaseViewModel
 import com.manju1375.musicwiki.config.Constants
 import com.manju1375.musicwiki.tracks.viewmodel.TracksViewState
@@ -139,9 +140,9 @@ class ArtistInfoDetailsViewModel(private val artistService: ArtistService) : Bas
         val newViewState = ArtistInfoViewState()
         artistInfo.let { artistInfo1 ->
             newViewState.name = artistInfo1.artist?.name
-            newViewState.summary = artistInfo1.artist?.bio?.summary
-            newViewState.playCount = artistInfo1.artist?.stats?.playcount
-            newViewState.followers = artistInfo1.artist?.stats?.listeners
+            newViewState.summary = getHtmlText(artistInfo1.artist?.bio?.summary)
+            newViewState.playCount = "PlayCount\n${artistInfo1.artist?.stats?.playcount}"
+            newViewState.followers = "Listeners\n${artistInfo1.artist?.stats?.listeners}"
             artistInfo1.artist?.tags?.tag?.let { artistItems ->
                 newViewState.tagListItems = artistItems
             }

@@ -10,9 +10,11 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.manju1375.musicwiki.genres.adapter.GenresAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.albums.adapter.AlbumsAdapter
 import com.manju1375.musicwiki.artists.viewmodel.ArtistInfoDetailsViewModel
 import com.manju1375.musicwiki.artists.viewmodel.ArtistInfoDetailsViewModelFactory
+import com.manju1375.musicwiki.common.ItemOffsetDecoration
 import com.manju1375.musicwiki.databinding.ActivityArtistInfoLayoutBinding
 import com.manju1375.musicwiki.genres.activity.GenreDetailsActivity
 import com.manju1375.musicwiki.tracks.adapter.TracksAdapter
@@ -45,6 +47,7 @@ class ArtistInfoActivity : AppCompatActivity(), OnOffsetChangedListener {
         binding.viewmodel = artistInfoDetailsViewModel
         val appbarLayout = binding.materialupAppbar
         appbarLayout.addOnOffsetChangedListener(this)
+        binding.artistGenresList.addItemDecoration(ItemOffsetDecoration(this, R.dimen.dp_10))
         binding.artistGenresList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         binding.artistGenresList.adapter = GenresAdapter(object : GenresAdapter.OnGenreItemClickListener{
             override fun onItemClick(genreItem: String) {
