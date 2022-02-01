@@ -16,15 +16,12 @@ data class Tag (
     var url: String? = null,
 
     @SerializedName("reach")
-    @Expose
     var reach: String? = null,
 
     @SerializedName("taggings")
-    @Expose
     var taggings: String? = null,
 
     @SerializedName("streamable")
-    @Expose
     var streamable: String? = null,
 
     @SerializedName("wiki")

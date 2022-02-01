@@ -10,7 +10,7 @@ import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.api.albums.model.Album
 
 
-class AlbumsAdapter: RecyclerView.Adapter<AlbumsAdapter.ViewHolder>(), BindableAdapter<Album> {
+class AlbumsAdapter(private val albumItemClickListener:OnAlbumItemClickListener): RecyclerView.Adapter<AlbumsAdapter.ViewHolder>(), BindableAdapter<Album> {
     private var albums: List<Album> = listOf()
     private var recyclerView: RecyclerView? = null
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,8 +18,11 @@ class AlbumsAdapter: RecyclerView.Adapter<AlbumsAdapter.ViewHolder>(), BindableA
         init {
                 albumName =  itemView.findViewById(R.id.album_tv)
             }
-        fun bind(name: String?) {
-            albumName?.text = name
+        fun bind(album: Album?) {
+            albumName?.text = album?.name
+            itemView.setOnClickListener {
+                albumItemClickListener.onItemClick(listOf(album?.name,album?.artist?.name))
+            }
         }
     }
 
@@ -30,7 +33,7 @@ class AlbumsAdapter: RecyclerView.Adapter<AlbumsAdapter.ViewHolder>(), BindableA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       holder.bind(albums[position].name)
+       holder.bind(albums[position])
     }
 
     override fun getItemCount(): Int {
@@ -50,5 +53,9 @@ class AlbumsAdapter: RecyclerView.Adapter<AlbumsAdapter.ViewHolder>(), BindableA
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         this.recyclerView = null
+    }
+
+    interface OnAlbumItemClickListener {
+        fun onItemClick(albumDetailParams: List<String?>)
     }
 }

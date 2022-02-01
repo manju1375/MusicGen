@@ -1,6 +1,7 @@
 package com.manju1375.musicwiki.api
 
 import android.app.Application
+import com.google.gson.GsonBuilder
 import com.manju1375.musicwiki.config.Constants.Companion.ENDPOINT_BASE_URL
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -26,7 +27,7 @@ object MusicWikiServices {
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ENDPOINT_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }

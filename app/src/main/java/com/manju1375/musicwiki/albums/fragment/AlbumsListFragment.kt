@@ -1,5 +1,6 @@
 package com.manju1375.musicwiki.albums.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.manju1375.musicwiki.albums.viewmodel.AlbumsViewModel
 import com.manju1375.musicwiki.albums.viewmodel.AlbumsViewModelFactory
 import com.manju1375.musicwiki.common.ItemOffsetDecoration
 import com.manju1375.musicwiki.databinding.FragmentAlbumsListBinding
+import com.manju1375.musicwiki.albums.activity.AlbumInfoActivity
 
 class AlbumsListFragment (val selectedGenre:String?): Fragment() {
 
@@ -34,7 +36,14 @@ class AlbumsListFragment (val selectedGenre:String?): Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = albumsViewModel
         context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.albumsList.addItemDecoration(it) }
-        binding.albumsList.adapter = AlbumsAdapter()
+        binding.albumsList.adapter = AlbumsAdapter(object : AlbumsAdapter.OnAlbumItemClickListener{
+            override fun onItemClick(albumDetailParams: List<String?>) {
+                startActivity(Intent(activity, AlbumInfoActivity::class.java).apply{
+                    putExtras(Bundle().apply {  putStringArray("selectedAlbum",albumDetailParams.toTypedArray())})
+                })
+            }
+
+        })
         albumsViewModel.setLoaderVisibility(View.VISIBLE)
         albumsViewModel.fetchAlbumsForTag(selectedGenre)
         return binding.root
