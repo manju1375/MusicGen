@@ -1,5 +1,6 @@
 package com.manju1375.musicwiki.albums.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.manju1375.musicwiki.R
+import com.manju1375.musicwiki.albums.activity.AlbumInfoActivity
+import com.manju1375.musicwiki.artists.activity.ArtistInfoActivity
 import com.manju1375.musicwiki.artists.adapter.ArtistsAdapter
 import com.manju1375.musicwiki.artists.viewmodel.ArtistsViewModel
 import com.manju1375.musicwiki.common.ItemOffsetDecoration
@@ -34,7 +37,14 @@ class ArtistsListFragment(val selectedGenre:String?) : Fragment() {
         binding.viewmodel = artistsViewModel
         context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.artistList.addItemDecoration(it) }
 
-        binding.artistList.adapter = ArtistsAdapter()
+        binding.artistList.adapter = ArtistsAdapter(object :ArtistsAdapter.OnArtistItemClickListener{
+            override fun onItemClick(artistName: String?) {
+                startActivity(Intent(activity, ArtistInfoActivity::class.java).apply{
+                    putExtras(Bundle().apply {  putString("selectedArtist",artistName)})
+                })
+            }
+
+        })
         artistsViewModel.setLoaderVisibility(View.VISIBLE)
         artistsViewModel.fetchArtists(selectedGenre)
         return binding.root

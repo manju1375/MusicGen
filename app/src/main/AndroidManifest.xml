@@ -21,10 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".genres.activity.GenreDetailsActivity" />
-        <activity android:name=".albums.activity.AlbumInfoActivity"/>
-        <activity android:name=".common.ui.activity.TestServicesActivity"
-            android:exported="true">
-        </activity>
+        <activity android:name=".albums.activity.AlbumInfoActivity" />
+        <activity android:name=".artists.activity.ArtistInfoActivity" />
+        <activity
+            android:name=".common.ui.activity.TestServicesActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

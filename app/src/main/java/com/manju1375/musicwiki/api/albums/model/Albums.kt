@@ -12,7 +12,6 @@ data class Albums (
     var album: List<Album>? = null,
 
     @SerializedName("@attr")
-    @Expose
     var attr: AttrAlbumResponse? = null
 
 ):Parcelable

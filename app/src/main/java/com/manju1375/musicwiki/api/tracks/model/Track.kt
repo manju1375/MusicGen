@@ -29,7 +29,6 @@ data class Track (
     var streamable: Streamable? = null,
 
     @SerializedName("artist")
-    @Expose
     var artist: Artist? = null,
 
     @SerializedName("image")

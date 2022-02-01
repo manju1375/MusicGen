@@ -12,7 +12,6 @@ data class Tracks (
     var track: List<Track>? = null,
 
     @SerializedName("@attr")
-    @Expose
     var attr: AttrTracksResponse? = null
 
 ):Parcelable

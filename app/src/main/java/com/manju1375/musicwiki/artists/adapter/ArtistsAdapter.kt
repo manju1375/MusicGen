@@ -10,7 +10,7 @@ import com.manju1375.musicwiki.R
 import com.manju1375.musicwiki.api.artists.model.Artist
 
 
-class ArtistsAdapter: RecyclerView.Adapter<ArtistsAdapter.ViewHolder>(), BindableAdapter<Artist> {
+class ArtistsAdapter(private val onArtistItemClickListener: OnArtistItemClickListener): RecyclerView.Adapter<ArtistsAdapter.ViewHolder>(), BindableAdapter<Artist> {
     private var artists: List<Artist> = listOf()
     private var recyclerView: RecyclerView? = null
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,6 +20,9 @@ class ArtistsAdapter: RecyclerView.Adapter<ArtistsAdapter.ViewHolder>(), Bindabl
             }
         fun bind(name: String?) {
             artistName?.text = name
+            itemView.setOnClickListener {
+                onArtistItemClickListener.onItemClick(name)
+            }
         }
     }
 
@@ -50,5 +53,9 @@ class ArtistsAdapter: RecyclerView.Adapter<ArtistsAdapter.ViewHolder>(), Bindabl
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         this.recyclerView = null
+    }
+
+    interface OnArtistItemClickListener {
+        fun onItemClick(artistName: String?)
     }
 }
