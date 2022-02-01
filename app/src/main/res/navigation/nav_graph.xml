@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.manju1375.musicwiki.genres.fragment.GenresListFragment"
-        android:label="GenresList"
+        android:label="MusicWiki"
         tools:layout="@layout/fragment_genres_list">
 
         <action

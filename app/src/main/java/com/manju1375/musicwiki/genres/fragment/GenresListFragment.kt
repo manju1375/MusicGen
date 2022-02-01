@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.manju1375.musicwiki.R
-import com.manju1375.musicwiki.databinding.FragmentGenresListBinding
-import com.manju1375.musicwiki.genres.adapter.GenresAdapter
 import com.manju1375.musicwiki.common.ItemOffsetDecoration
+import com.manju1375.musicwiki.databinding.FragmentGenresListBinding
 import com.manju1375.musicwiki.genres.activity.GenreDetailsActivity
+import com.manju1375.musicwiki.genres.adapter.GenresAdapter
 import com.manju1375.musicwiki.genres.viewmodel.GenresViewModel
-import com.manju1375.musicwiki.genres.viewmodel.ArtistsViewModelFactory
 import com.manju1375.musicwiki.genres.viewmodel.GenresViewModelFactory
-import com.manju1375.musicwiki.genres.viewmodel.GenresViewState
 
 class GenresListFragment : Fragment() {
 
@@ -37,34 +35,29 @@ class GenresListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = genresViewModel
         context?.let { ItemOffsetDecoration(it, R.dimen.dp_10) }?.let { binding.genresList.addItemDecoration(it) }
-        binding.genresList.adapter = GenresAdapter(object :GenresAdapter.OnGenreItemClickListener{
+        binding.genresList.adapter = GenresAdapter(object : GenresAdapter.OnGenreItemClickListener {
             override fun onItemClick(genreItem: String) {
-                startActivity(Intent(activity,GenreDetailsActivity::class.java).apply{
-                    putExtras(Bundle().apply {  putString("selectedGenre",genreItem)})
+                startActivity(Intent(activity, GenreDetailsActivity::class.java).apply {
+                    putExtras(Bundle().apply { putString("selectedGenre", genreItem) })
                 })
-                }
-            })
+            }
+        })
 
         (binding.genresList.adapter as GenresAdapter).expandRecyclerView(false)
         genresViewModel.setLoaderVisibility(View.VISIBLE)
         genresViewModel.fetchGenres()
         binding.buttonExpand.setOnClickListener {
-            ( binding.genresList.adapter as GenresAdapter).isExpandable?.let { isExpandable ->
-                if(!isExpandable){
+            (binding.genresList.adapter as GenresAdapter).isExpandable?.let { isExpandable ->
+                if (!isExpandable) {
                     (binding.genresList.adapter as GenresAdapter).expandRecyclerView(true)
-                    binding.buttonExpand.text = "Collapse"
-                }
-                else{
+                    binding.buttonExpand.text = context?.resources?.getText(R.string.collapse)
+                } else {
                     (binding.genresList.adapter as GenresAdapter).expandRecyclerView(false)
-                    binding.buttonExpand.text = "Expand"
+                    binding.buttonExpand.text = context?.resources?.getText(R.string.expand)
                 }
             }
         }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
