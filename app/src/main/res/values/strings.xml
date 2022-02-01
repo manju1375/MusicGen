@@ -3,5 +3,5 @@
     <string name="api_key" translatable="false">0f408f6404a94723710b4e444a0382b4</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="expand">Click here to get more Genre</string>
-    <string name="collapse">Collapse to Few Genres</string>
+    <string name="collapse">Collapse to Few Genre</string>
 </resources>

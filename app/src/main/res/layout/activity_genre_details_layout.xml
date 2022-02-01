@@ -36,17 +36,21 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@android:color/white"
                         android:id="@+id/genre_title_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="start"
+                        style="@style/default_text_body_lg_strong"
                         android:text="@{viewmodel.genreInfoViewState.genreInfoName}" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="10dp"
                         android:id="@+id/genre_desc_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:gravity="start"
+                        android:textAlignment="gravity"
                         android:text="@{viewmodel.genreInfoViewState.genreInfoSummary}" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -68,21 +72,6 @@
                 android:orientation="vertical"
                 android:paddingTop="8dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Title"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="Sub Title"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
-                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout

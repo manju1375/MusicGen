@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="default_text_body_md">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingMultiplier">1.21</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="firstBaselineToTopHeight">13.54sp</item>
+        <item name="lastBaselineToBottomHeight">5.46sp</item>
+        <item name="android:includeFontPadding">true</item>
+    </style>
+
+    <style name="default_text_body_lg">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="firstBaselineToTopHeight">13.85sp</item>
+        <item name="lastBaselineToBottomHeight">4.15sp</item>
+        <item name="android:includeFontPadding">true</item>
+    </style>
+
+    <style name="default_text_body_sm_strong">
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingMultiplier">1.23</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="firstBaselineToTopHeight">11.69sp</item>
+        <item name="lastBaselineToBottomHeight">4.31sp</item>
+        <item name="android:includeFontPadding">true</item>
+    </style>
+
+    <style name="default_text_body_md_strong">
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="firstBaselineToTopHeight">13.35sp</item>
+        <item name="lastBaselineToBottomHeight">5.65sp</item>
+        <item name="android:includeFontPadding">true</item>
+    </style>
+
+    <style name="default_text_body_lg_strong">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingMultiplier">1.05</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="firstBaselineToTopHeight">14.1sp</item>
+        <item name="lastBaselineToBottomHeight">4.9sp</item>
+        <item name="android:includeFontPadding">true</item>
+    </style>
+</resources>

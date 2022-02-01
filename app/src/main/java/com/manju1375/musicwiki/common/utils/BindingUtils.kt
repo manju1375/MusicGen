@@ -21,7 +21,3 @@ fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, itemList: List<T>?
     }
 }
 
-@BindingAdapter("isVisible")
-fun isVisible(view: View, isVisible: Boolean) {
-    view.isVisible = isVisible
-}

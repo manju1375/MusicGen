@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.manju1375.musicwiki.api.genres.model.GenresTagInfo
 import com.manju1375.musicwiki.api.genres.service.GenreService
 import com.manju1375.musicwiki.common.utils.RxUtils
+import com.manju1375.musicwiki.common.utils.getHtmlText
 import com.manju1375.musicwiki.common.viewmodel.BaseViewModel
 import com.manju1375.musicwiki.config.Constants
 
@@ -54,7 +55,7 @@ class GenresDetailsViewModel(private val genreService: GenreService) : BaseViewM
         val newViewState = GenresInfoViewState()
         genresTagInfo.tag?.let { genreInfo ->
             newViewState.genreInfoName = genreInfo.name
-            newViewState.genreInfoSummary = genreInfo.wiki?.summary
+            newViewState.genreInfoSummary = getHtmlText(genreInfo.wiki?.summary)
         }
         genreInfoViewState.postValue(newViewState)
     }
