@@ -13,18 +13,23 @@
 
         <activity
             android:name=".common.ui.activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".genres.activity.GenreDetailsActivity" />
-        <activity android:name=".albums.activity.AlbumInfoActivity" />
-        <activity android:name=".artists.activity.ArtistInfoActivity" />
+        <activity android:name=".genres.activity.GenreDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".albums.activity.AlbumInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".artists.activity.ArtistInfoActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".common.ui.activity.TestServicesActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
