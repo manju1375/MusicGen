@@ -5,6 +5,10 @@ plugins {
     id "kotlin-parcelize"
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdk 31
 
@@ -15,6 +19,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // should correspond to key/value pairs inside the file
+        buildConfigField("String", "CONSUMER_KEY", apikeyProperties['API_KEY'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,7 +64,10 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
-    testImplementation 'junit:junit:4.+'
+    //Unit Testing
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

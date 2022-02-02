@@ -3,6 +3,7 @@ package com.manju1375.musicwiki.genres.viewmodel
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import com.manju1375.musicwiki.BuildConfig
 import com.manju1375.musicwiki.api.genres.model.GenresTagDetails
 import com.manju1375.musicwiki.api.genres.model.GenresTagInfo
 import com.manju1375.musicwiki.api.genres.request.GenresRequest
@@ -30,7 +31,7 @@ class GenresViewModel(private val genreService: GenreService) : BaseViewModel() 
         Log.d(TAG,"fetching Genres...")
         fetchGenres = true
         loaderVisibility.postValue(View.VISIBLE)
-        val hashMap =hashMapOf("method" to "chart.getTopTags", "api_key" to "0f408f6404a94723710b4e444a0382b4","format" to "json")
+        val hashMap =hashMapOf("method" to "chart.getTopTags", "api_key" to BuildConfig.CONSUMER_KEY,"format" to "json")
         addDisposable(genreService.getGenres(Constants.ENDPOINT_BASE_URL,hashMap)
             .compose(RxUtils.applySingleSchedulers())
             .subscribe({ genresDetails ->
